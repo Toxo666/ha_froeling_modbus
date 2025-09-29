@@ -1,0 +1,97 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Froeling Modbus konfigurieren",
+        "description": "Bitte geben Sie die Verbindungsdetails für Ihr Froeling Modbus-Gerät ein.",
+        "data": {
+          "name": "Eindeutiger Name (Standard: Froeling)",
+          "host": "Hostname/IP",
+          "port": "Port (Standard: 502)",
+          "update_interval": "Update-Intervall (Standard: 60 Sekunden)",
+          "kessel": "Kessel",
+          "boiler01": "Boiler 01",
+          "hk01": "Heizkreis 01",
+          "hk02": "Heizkreis 02",
+          "austragung": "Austragung",
+          "puffer01": "Puffer 01",
+          "zirkulationspumpe": "Zirkulationspumpe"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "anlagenzustand": { "name": "Anlagenzustand" },
+      "kesselzustand": { "name": "Kesselzustand" },
+      "aussentemperatur": { "name": "Außentemperatur" },
+      "kesseltemperatur": { "name": "Kesseltemperatur" },
+      "abgastemperatur": { "name": "Abgastemperatur" },
+      "verbleibende_heizstunden_bis_zur_asche_entleeren_warnung": { "name": "Verbleibende Heizstunden bis zur Asche entleeren Warnung" },
+      "saugzug_ansteuerung": { "name": "Saugzug – Ansteuerung" },
+      "saugzugdrehzahl": { "name": "Saugzugdrehzahl" },
+      "sauerstoffregler": { "name": "Sauerstoffregler" },
+      "restsauerstoffgehalt": { "name": "Restsauerstoffgehalt" },
+      "ruecklauffuehler": { "name": "Rücklauffühler" },
+      "primaerluft": { "name": "Primärluft" },
+      "sekundaerluft": { "name": "Sekundärluft" },
+      "betriebsstunden": { "name": "Betriebsstunden" },
+      "stunden_seit_letzter_wartung": { "name": "Stunden seit letzter Wartung" },
+      "betriebsstunden_in_der_feuererhaltung": { "name": "Betriebsstunden in der Feuererhaltung" },
+      "hk01_vorlauf_isttemperatur": { "name": "HK01 – Vorlauf-Isttemperatur" },
+      "hk01_vorlauf_solltemperatur": { "name": "HK01 – Vorlauf-Solltemperatur" },
+      "hk02_vorlauf_isttemperatur": { "name": "HK02 – Vorlauf-Isttemperatur" },
+      "hk02_vorlauf_solltemperatur": { "name": "HK02 – Vorlauf-Solltemperatur" },
+      "puffer_1_temperatur_oben": { "name": "Puffer 1 Temperatur oben" },
+      "puffer_1_temperatur_mitte": { "name": "Puffer 1 Temperatur mitte" },
+      "puffer_1_temperatur_unten": { "name": "Puffer 1 Temperatur unten" },
+      "puffer_1_pufferpumpen_ansteuerung": { "name": "Puffer 1 Pufferpumpen-Ansteuerung" },
+      "puffer_1_ladezustand": { "name": "Puffer 1 Ladezustand" },
+      "boiler_1_temperatur_oben": { "name": "Boiler 1 Temperatur oben" },
+      "boiler_1_pumpe_ansteuerung": { "name": "Boiler 1 Pumpe – Ansteuerung" },
+      "fuellstand_im_pelletsbehaelter": { "name": "Füllstand im Pelletsbehälter" },
+      "resetierbarer_kg_zaehler": { "name": "Resetierbarer kg-Zähler" },
+      "resetierbarer_t_zaehler": { "name": "Resetierbarer t-Zähler" },
+      "pelletverbrauch_gesamt": { "name": "Pelletverbrauch gesamt" },
+      "ruecklauftemperatur_an_der_zirkulations_leitung": { "name": "Rücklauftemperatur an der Zirkulationsleitung" },
+      "stoemungsschalter_an_der_brauchwasser_leitung": { "name": "Strömungsschalter an der Brauchwasserleitung" },
+      "drehzahl_der_zirkulations_pumpe": { "name": "Drehzahl der Zirkulationspumpe" }
+    },
+    "number": {
+      "kessel_solltemperatur": { "name": "Kessel-Solltemperatur" },
+      "bei_welcher_rl_temperatur_an_der_zirkulationsleitung_soll_die_pumpe_ausschalten": { "name": "RL-Temperatur an der Zirkulationsleitung, ab der die Pumpe ausschaltet" },
+      "hk1_vorlauf_temperatur_10c_aussentemperatur": { "name": "HK1 Vorlauf bei 10 °C Außentemperatur" },
+      "hk1_vorlauf_temperatur_minus_10c_aussentemperatur": { "name": "HK1 Vorlauf bei −10 °C Außentemperatur" },
+      "hk1_heizkreispumpe_ausschalten_wenn_vorlauf_soll_kleiner_ist_als": { "name": "HK1 Pumpe aus, wenn Vorlauf-Soll kleiner als" },
+      "hk1_absenkung_der_vorlauftemperatur_im_absenkbetrieb": { "name": "HK1 Absenkung Vorlauftemperatur (Absenkbetrieb)" },
+      "hk1_aussentemperatur_unter_der_die_heizkreispumpe_im_heizbetrieb_einschaltet": { "name": "HK1 Außentemperatur: Pumpe EIN im Heizbetrieb unter" },
+      "hk1_aussentemperatur_unter_der_die_heizkreispumpe_im_absenkbetrieb_einschaltet": { "name": "HK1 Außentemperatur: Pumpe EIN im Absenkbetrieb unter" },
+      "hk1_frostschutztemperatur": { "name": "HK1 Frostschutztemperatur" },
+      "hk1_temp_am_puffer_oben_ab_der_der_ueberhitzungsschutz_aktiv_wird": { "name": "HK1 Puffer oben: Überhitzungsschutz ab" },
+      "hk2_vorlauf_temperatur_10c_aussentemperatur": { "name": "HK2 Vorlauf bei 10 °C Außentemperatur" },
+      "hk2_vorlauf_temperatur_minus_10c_aussentemperatur": { "name": "HK2 Vorlauf bei −10 °C Außentemperatur" },
+      "hk2_heizkreispumpe_ausschalten_wenn_vorlauf_soll_kleiner_ist_als": { "name": "HK2 Pumpe aus, wenn Vorlauf-Soll kleiner als" },
+      "hk2_absenkung_der_vorlauftemperatur_im_absenkbetrieb": { "name": "HK2 Absenkung Vorlauftemperatur (Absenkbetrieb)" },
+      "hk2_aussentemperatur_unter_der_die_heizkreispumpe_im_heizbetrieb_einschaltet": { "name": "HK2 Außentemperatur: Pumpe EIN im Heizbetrieb unter" },
+      "hk2_aussentemperatur_unter_der_die_heizkreispumpe_im_absenkbetrieb_einschaltet": { "name": "HK2 Außentemperatur: Pumpe EIN im Absenkbetrieb unter" },
+      "hk2_frostschutztemperatur": { "name": "HK2 Frostschutztemperatur" },
+      "hk2_temp_am_puffer_oben_ab_der_der_ueberhitzungsschutz_aktiv_wird": { "name": "HK2 Puffer oben: Überhitzungsschutz ab" },
+      "boiler_1_gewuenschte_boilertemperatur": { "name": "Boiler 1 – gewünschte Temperatur" },
+      "boiler_1_nachladen_wenn_boilertemperatur_unter": { "name": "Boiler 1 – Nachladen, wenn Temperatur unter" },
+      "pelletlager_restbestand": { "name": "Pelletlager – Restbestand" }
+    },
+    "binary_sensor": {
+      "hk1_pumpe_an_aus": { "name": "HK01 Pumpe AN/AUS" },
+      "hk2_pumpe_an_aus": { "name": "HK02 Pumpe AN/AUS" },
+      "puffer_1_pufferpumpe_an_aus": { "name": "Puffer 1 Pumpe AN/AUS" },
+      "zirkulationspumpe_an_aus": { "name": "Zirkulationspumpe AN/AUS" },
+      "boiler_1_pumpe_an_aus": { "name": "Boiler 1 Pumpe AN/AUS" }
+    },
+    "select": {
+      "hk01_betriebsart":             { "name": "Betriebsart Heizkreis 01" },
+      "hk02_betriebsart":             { "name": "Betriebsart Heizkreis 02" },
+      "boiler_1_betriebsart":         { "name": "Betriebsart Boiler" },
+      "pelletsaustragung_deaktivieren": { "name": "Automatische Pelletsaustragung deaktivieren" }
+    }
+  }
+}
