@@ -1,0 +1,180 @@
+--- Austragung ---
+30020 Stromaufnahme der Austragschnecke -> Sensor
+30022 Füllstand im Pelletsbehälter -> Sensor
+30082 Resetierbarer kg-Zähler: -> Sensor
+30083 Resetierbarer t-Zähler: -> Sensor
+30084 Pelletverbrauch Gesamt -> Sensor
+40252 Nach Scheitholzbetrieb Pufferladung mit Pellets verzögern um -> Time
+40265 Automatische Pelletsaustragung deaktivieren -> Switch
+40319 Geförderte Pellets bei 100% Einschub -> Number
+40320 Pelletlager Restbestand -> Number
+40336 Pelletlager Mindestbestand -> Number
+40062 Start der 1. Pelletsbefüllung -> Time
+40095 Start der 2. Pelletsbefüllung -> Time
+40125 Dauer des Rüttelns -> Sensor
+
+--- Boiler 01 ---
+31631 Boiler 1 - Boilertemperatur oben -> Sensor
+31633 Boiler 1 - Boilerpumpe Ansteuerung -> Sensor
+41632 Boiler 1 - Gewünschte Boilertemperatur -> Number
+41633 Boiler 1 - Nachladen, wenn Boilertemperatur unter -> Number
+41634 Boiler 1 - Laden wenn Puffer und Boiler eine Temperaturdiff. aufweisen von -> Sensor
+41635 Boiler 1 - Restwärmenutzung -> Binary_Sensor
+41636 Boiler 1 - Boiler nur einmal pro Tag aufladen -> Binary_Sensor
+41637 Boiler 1 - Legionelle Aufheizung aktiv -> Binary_Sensor
+41638 Boiler 1 - Wann soll die Legionellenaufheizung durchgeführt werden? -> Sensor 1-8 1=Montag 8=Sonntag
+41639 Boiler 1 - Laden wenn Kessel und Boiler eine Temperaturdiff. aufweisen von -> Sensor
+41640 Boiler 1 - Soll-Differenz zwischen Kessel und Boiler -> Sensor
+41641 Boiler 1 - Minimale Drehzahl der Boilerpumpe -> Sensor
+41646 Boiler 1 - Maximale Drehzahl der Boilerpumpe -> Sensor
+48019 Boiler 1 - Solltemperatur -> Number
+
+--- Heizkreis 01 ---
+31031 HK1 - Vorlauf-Isttemperatur -> Sensor
+31032 HK1 - Vorlauf-Solltemperatur -> Sensor
+41032 HK1 - Gewünschte Vorlauf-temperatur bei +10°C Außentemperatur -> Number
+41033 HK1 - Gewünschte Vorlauf-temperatur bei -10°C Außentemperatur -> Number
+41034 HK1 - Absenkung der Vorlauftemperatur im Absenkbetrieb -> Number
+41035 HK1 - Maximale Heizkreis Vorlauftemperatur -> Sensor
+41037 HK1 - Außentemperatur, unter der die Heizkreispumpe im Heizbetrieb einschaltet -> Number
+41038 HK1 - Außentemperatur, unter der die Heizkreispumpe im Absenkbetrieb einschaltet -> Number
+41039 HK1 - Frostschutztemperatur -> Number
+41040 HK1 - Heizkreispumpe ausschalten wenn Vorlauf Soll kleiner ist als -> Number
+41043 HK1 - Laufzeit des Mischers -> Sensor
+41044 HK1 - Darf dieser Heizkreis bei aktiven Boilervorrang heizen ? -> Binary_Sensor
+41045 HK1 - Von welchem Puffer wird dieser HK versorgt (0 = Kessel) -> Sensor
+41046 HK1 - Hochtemperatur- Anforderung aufgrund Boilerladung für -> Binary_Sensor
+41047 HK1 - Maximale Boiler Vorlauftemperatur -> Sensor
+41048 HK1 - Temp. am Puffer oben ab der der Überhitzungsschutz aktiv wird -> Number
+48001 HK1 - Vorlauf-Solltemperatur -> Number
+48029 HK1 - Freigabe -> Binary_Sensor
+48047 HK1 - Betriebsart -> Select [0 … Aus 1 … Automatik 2 … Extraheizen 3 … Absenken 4 … Dauerabsenken 5 … Partybetrieb]
+
+--- Heizkreis 02 ---
+31061 HK2 - Vorlauf-Isttemperatur -> Sensor
+31062 HK2 - Vorlauf-Solltemperatur -> Sensor
+41062 HK2 - Gewünschte Vorlauf-temperatur bei +10°C Außentemperatur -> Number
+41063 HK2 - Gewünschte Vorlauf-temperatur bei -10°C Außentemperatur -> Number
+41064 HK2 - Absenkung der Vorlauftemperatur im Absenkbetrieb -> Number
+41065 HK2 - Maximale Heizkreis Vorlauftemperatur -> Sensor
+41067 HK2 - Außentemperatur, unter der die Heizkreispumpe im Heizbetrieb einschaltet -> Number
+41068 HK2 - Außentemperatur, unter der die Heizkreispumpe im Absenkbetrieb einschaltet -> Number
+41069 HK2 - Frostschutztemperatur -> Number
+41070 HK2 - Heizkreispumpe ausschalten wenn Vorlauf Soll kleiner ist als -> Number
+41073 HK2 - Laufzeit des Mischers -> Sensor
+41074 HK2 - Darf dieser Heizkreis bei aktiven Boilervorrang heizen ? -> Binary_Sensor
+41075 HK2 - Von welchem Puffer wird dieser HK versorgt (0 = Kessel) -> Sensor
+41076 HK2 - Hochtemperatur- Anforderung aufgrund Boilerladung für -> Binary_Sensor
+41078 HK2 - Maximale Boiler Vorlauftemperatur -> Sensor
+41079 HK2 - Temp. am Puffer oben ab der der Überhitzungsschutz aktiv wird -> Number
+48002 HK2 - Vorlauf-Solltemperatur -> Number
+48030 HK2 - Freigabe -> Binary_Sensor
+48048 HK2 - Betriebsart -> Select [0 … Aus 1 … Automatik 2 … Extraheizen 3 … Absenken 4 … Dauerabsenken 5 … Partybetrieb]
+
+--- Kessel ---
+30001 Kesseltemperatur -> Sensor
+30002 Abgastemperatur -> Sensor
+30004 Restsauerstoffgehalt -> Sensor
+30005 Position der Primärluftklappe -> Sensor
+30007 Saugzugdrehzahl -> Sensor
+30008 Fühler 1 -> Sensor
+30009 Abgastemperatur nach dem Brennwert- wärmetauscher -> Sensor
+30010 Rücklauffühler -> Sensor
+30011 Luftgeschwindigkeit in der Ansaugöffnung -> Sensor
+30012 Primärluft -> Sensor
+30013 Saugzug - Ansteuerung -> Sensor
+30014 Sekundärluft -> Sensor
+30015 Kesselstellgröße -> Sensor
+30016 Abgas-Solltemperatur -> Sensor
+30017 Sauerstoffregler -> Sensor
+30019 Ansauglufttemperatur -> Sensor
+30028 Errechnete Kesselsolltemperatur -> Sensor
+30037 Rücklaufpumpen Ansteuerung -> Sensor
+30057 Kesselanforderung über Heizkreis oder Boiler steht an -> Binary_Sensor
+30068 Drehzahl Kesselladepumpe -> Sensor
+30087 Verbleibende Heizstunden bis zur Asche entleeren Warnung -> Sensor
+30089 Feuerraumtemperatur -> Sensor
+30105 Saugzug - Ansteuerung -> Sensor
+30171 Vom Kessel erzeugte Wärmemenge -> Sensor
+40001 Kessel-Solltemperatur -> Number
+40002 Abstellen wenn aktuelle Kesseltemperatur höher als Kesselsolltemperatur + -> Sensor
+40003 Maximale Anheizzeit, innerhalb der der Zustand HEIZEN erreicht sein muss -> Sensor
+40008 Kesseltemperatur, ab der alle Pumpen laufen dürfen -> Sensor
+40009 Immer Abschalten über höchster einstellbarer Kessel-Solltemperatur + -> Sensor
+40027 Sollwert des Restsauerstoffgehaltes -> Sensor
+40028 Restsauerstoffgehalt, über dem in den Zustand FEUER AUS geschaltet wird -> Sensor
+40029 Rest-O2, über dem keine Verbrennung mehr stattfindet -> Sensor
+40043 Dauer des Vorwärmens -> Sensor
+40045 Maximale Zünddauer -> Sensor
+40046 Abstellen Warten 1 -> Sensor
+40047 Mindestdauer Gebläsenachlauf I (für Rest-O2) -> Sensor
+40048 Mindestdauer Abstellen -> Sensor
+40049 Abstellen Warten 2 -> Sensor
+40050 Mindestdauer Gebläsenachlauf II (für Abgastemperatur) -> Sensor
+40051 Sicherheitszeit -> Sensor
+40061 WOS Laufzeit -> Sensor
+40073 Abgastemperatur, unter der in den Zustand FEUER AUS geschaltet wird -> Sensor
+40085 Nach wie viel mal abstellen soll abgereinigt werden -> Sensor
+40136 Automatisch Zünden -> Switch
+40441 Brennstoffauswahl -> Select
+43020 Automatische Lambdasonden-Kalibrierung aktiv -> Binary_Sensor
+
+--- Puffer 01 ---
+32001 Puffer 1 - Puffertemperatur oben -> Sensor
+32002 Puffer 1 - Puffertemperatur Mitte -> Sensor
+32003 Puffer 1 - Puffertemperatur unten -> Sensor
+32004 Puffer 1 - Pufferpumpen Ansteuerung -> Sensor
+32007 Puffer 1 - Pufferladezustand -> Sensor
+42001 Puffer 1 - Heizkreisfreigabe ab folgender Puffertemperatur -> Sensor
+42002 Puffer 1 - Restwärmenutzung -> Binary_Sensor
+42003 Puffer 1 - Temperaturdifferenz zwischen Kessel und Grenzschicht -> Number
+42004 Puffer 1 - Minimale Drehzahl der Pufferpumpe -> Sensor
+42005 Puffer 1 - Kesselstart bei Differenz zwischen Kessel-Solltemperatur und oberer Puffertemperatur -> Sensor
+42006 Puffer 1 - Puffer durchgeladen, wenn Temperaturdiff. zwischen Kesselsoll und Pufferunten -> Sensor
+42012 Puffer 1 - Maximale Drehzahl der Pufferpumpe -> Sensor
+42014 Puffer 1 - Puffermitteregelung Aktiv ? Bei Nein ist der Fühler nur Anzeige -> Binary_Sensor
+42015 Puffer 1 - SP-Dual - Im Pelletsbetrieb nach Puffermitte die Pufferladung beenden -> Binary_Sensor
+42018 Puffer 1 - Puffer - Puffer Differenz -> Sensor
+42020 Puffer 1 - Pufferladezustand ist 100 % bei Kesselsoll - Parameter -> Sensor
+42021 Puffer 1 - Pufferladezustand ist 0 % bei folgender Temperatur (Absolutwert) -> Sensor
+42022 Start 2 - Start der Pufferladung ab Ladezustand -> Number
+42025 Pufferanforderung nach Systemumfeld steuern -> Binary_Sensor
+42026 Pufferanforderung nach Systemumfeld ausschaltverzögern um -> Sensor
+42027 100 % Kesselleistung wenn Pufferladezustand kleiner als -> Number
+42028 0 % Kesselleistung wenn Pufferladezustand größer als -> Number
+42029 Puffer 1 - Volumen des verwendeten Puffers -> Sensor
+42030 Puffer 1 - Wird ein Hygiene Speicher verwendet -> Binary_Sensor
+42031 Nachlegeberechnung aktiv (Fühler müssen richtig zugewiesen sein ! ) -> Binary_Sensor
+
+--- Controller ---
+10001 Türkontaktschalter -> Binary_Sensor
+10002 STB Eingang -> Binary_Sensor
+10003 NOT-AUS Eingang -> Binary_Sensor
+10004 Kesselfreigabe -> Binary_Sensor
+30003 Boardtemperatur -> Sensor
+30018 Boardtemperatur Pelletsmodul -> Sensor
+30021 Betriebsstunden -> Sensor
+30023 Anzahl der Brennerstarts -> Sensor
+30025 Betriebsstunden in der Feuererhaltung -> Sensor
+30040 Betriebsstunden Stokerschnecke -> Sensor
+30041 Betriebsstunden Förderschnecke -> Sensor
+30043 Betriebsstunden Rüttler -> Sensor
+30045 Betriebsstunden WOS -> Sensor
+30046 Betriebsstunden Ascheschnecke -> Sensor
+30047 Betriebsstunden Zündung -> Sensor
+30048 Betriebsstunden Lambdasonde -> Sensor
+30049 Betriebsstunden Saugturbine(n) -> Sensor
+30050 Betriebsstunden Austragsschnecke -> Sensor
+30055 Lambdasondenspannung gemessen -> Sensor
+30056 Stunden seit letzter Wartung -> Sensor
+30063 Stunden im Pelletsbetrieb -> Sensor
+30064 Stunden im Heizen -> Sensor
+30075 Stunden in Teillastbetrieb (Kesselstellgröße < 40 %) -> Sensor
+30077 Stunden im Scheitholzbetrieb -> Sensor
+30085 Tagesertrag [kWh] -> Sensor
+30086 Gesamtertrag [kWh] -> Sensor
+30098 Betriebsstunden Saugturbine -> Sensor
+30102 Anzahl der Reinigungen -> Sensor
+30103 Zeit bis zur nächsten Reinigung -> Sensor
+30104 Betriebsstunden E-Filter -> Sensor
+31001 Außentemperatur -> Sensor

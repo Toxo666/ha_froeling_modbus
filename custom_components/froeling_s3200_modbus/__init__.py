@@ -12,6 +12,9 @@ import voluptuous as vol
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers import device_registry as dr, entity_registry as er
 
+for name in ("pymodbus", "pymodbus.client", "pymodbus.transaction", "pymodbus.framer", "pymodbus.logging"):
+    logging.getLogger(name).setLevel(logging.WARNING)
+
 DOMAIN = "froeling_s3200_modbus"
 _LOGGER = logging.getLogger(__name__)
 
@@ -38,8 +41,14 @@ CONFIG_SCHEMA = vol.Schema(
     extra=vol.ALLOW_EXTRA,
 )
 
-PLATFORMS = [Platform.SENSOR, Platform.NUMBER, Platform.BINARY_SENSOR, Platform.SELECT]
-
+PLATFORMS = [
+    Platform.SENSOR,
+    Platform.NUMBER,
+    Platform.BINARY_SENSOR,
+    Platform.SELECT,
+    Platform.SWITCH,
+    Platform.TIME,
+]
 
 async def async_setup(hass: HomeAssistant, config: dict):
     return True
