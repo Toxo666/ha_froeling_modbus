@@ -193,9 +193,35 @@
       "nachlegeberechnung_aktiv": { "name": "Refill Calculation Active" }
     },
     "select": {
-      "betriebsart_heizkreis_01": { "name": "Heating Circuit 01 Mode" },
-      "betriebsart_heizkreis_02": { "name": "Heating Circuit 02 Mode" },
-      "brennstoffauswahl": { "name": "Fuel Selection" }
+      "betriebsart_heizkreis_01": {
+        "name": "Heating Circuit 01 Mode",
+        "state": {
+          "off": "Off",
+          "auto": "Automatic",
+          "extra": "Extra Heating",
+          "eco": "Setback",
+          "eco_permanent": "Permanent Setback",
+          "party": "Party Mode"
+          }
+        },
+        "betriebsart_heizkreis_02": {
+          "name": "Heating Circuit 02 Mode",
+          "state": {
+          "off": "Off",
+          "auto": "Automatic",
+          "extra": "Extra Heating",
+          "eco": "Setback",
+          "eco_permanent": "Permanent Setback",
+          "party": "Party Mode"
+          }
+        },
+        "brennstoffauswahl": {
+          "name": "Fuel Selection",
+          "state": {
+            "softwood": "Softwood",
+            "hardwood": "Hardwood"
+            }
+        }
     },
     "switch": {
       "pelletsaustragung_deaktivieren": { "name": "Disable Automatic Pellet Feed" },
@@ -207,20 +233,6 @@
       "pelletsbefuellung_1_startzeit": { "name": "Start Time 1st Pellet Filling" },
       "pelletsbefuellung_2_startzeit": { "name": "Start Time 2nd Pellet Filling" },
       "nach_scheitholzbetrieb_pufferladung_verzoegern_um": { "name": "After Log Operation: Delay Pellet Buffer Charging by" }
-    }
-  },
-  "select_option": {
-    "hk_mode": {
-      "off": "Off",
-      "auto": "Automatic",
-      "extra": "Extra Heating",
-      "eco": "Setback",
-      "eco_permanent": "Permanent Setback",
-      "party": "Party Mode"
-    },
-    "fuel": {
-      "softwood": "Softwood",
-      "hardwood": "Hardwood"
     }
   }
 }

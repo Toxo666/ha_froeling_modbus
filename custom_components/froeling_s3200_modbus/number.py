@@ -1,11 +1,10 @@
-from homeassistant.components.number import NumberEntity
+from homeassistant.components.number import NumberEntity, NumberDeviceClass
 from pymodbus.client import ModbusTcpClient
 import logging
-from datetime import timedelta
+from datetime import datetime, timezone, timedelta
 from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.helpers.translation import async_get_translations
 from .const import DOMAIN
-from datetime import datetime, timezone, timedelta
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -55,7 +54,6 @@ def _ensure_connected(client: ModbusTcpClient):
 def _read_input_sync(client, unit_id: int, addr: int, count: int):
     if not client.connect():
         return None, "connect"
-    # 1) Bevorzugt: device_id
     try:
         res = client.read_input_registers(addr, count=count, device_id=unit_id)
         if hasattr(res, "isError") and res.isError():
@@ -63,7 +61,6 @@ def _read_input_sync(client, unit_id: int, addr: int, count: int):
         return res, None
     except TypeError:
         pass
-    # 2) Fallback: unit
     try:
         res = client.read_input_registers(addr, count=count, unit=unit_id)
         if hasattr(res, "isError") and res.isError():
@@ -91,7 +88,6 @@ def _read_holding_sync(client, unit_id: int, addr: int, count: int):
         return None, f"exc:{e}"
 
 def _write_register_sync(client, unit_id: int, addr: int, value: int):
-    """FC=06: Single Holding Register schreiben (4xxxx). addr ist 0-basiert (40001 -> 0)."""
     if not client.connect():
         return None, "connect"
     try:
@@ -118,10 +114,8 @@ def _write_register_sync(client, unit_id: int, addr: int, value: int):
         return None, f"exc:{e}"
 # --- ENDE HELPER ---
 
-# ---------- Helper: Friendly Name-Key ----------
 def _tr_key(s: str) -> str:
     return "".join(ch.lower() if ch.isalnum() else "_" for ch in s)
-# ------------------------------------------------
 
 async def async_setup_entry(hass, config_entry, async_add_entities):
     data = hass.data[DOMAIN][config_entry.entry_id]
@@ -201,12 +195,11 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
     for n in numbers:
         async_track_time_interval(hass, n.async_update, update_interval)
 
-# ---------------- Basisklassen ----------------
 class _BaseNumber(NumberEntity):
     _attr_should_poll = False
-    """Gemeinsame Basis – Name/IDs/Übersetzungen/Meta."""
     def __init__(self, hass, config_entry, client, lock, translations, data, entity_id, register, unit,
-                 scaling_factor, decimal_places=0, min_value=0, max_value=0, device_key="controller"):
+                 scaling_factor, decimal_places=0, min_value=0, max_value=0,
+                 device_key="controller", device_class: str | NumberDeviceClass | None = None):
         self._hass = hass
         self._client = client
         self._lock = lock
@@ -229,6 +222,21 @@ class _BaseNumber(NumberEntity):
             self._entity_id.replace("_", " ")
         )
 
+        dc = device_class
+        if isinstance(device_class, str):
+            _MAP = {
+                "temperature": getattr(NumberDeviceClass, "TEMPERATURE", None),
+                "voltage": getattr(NumberDeviceClass, "VOLTAGE", None),
+                "current": getattr(NumberDeviceClass, "CURRENT", None),
+                "power": getattr(NumberDeviceClass, "POWER", None),
+                "energy": getattr(NumberDeviceClass, "ENERGY", None),
+                "frequency": getattr(NumberDeviceClass, "FREQUENCY", None),
+                "pressure": getattr(NumberDeviceClass, "PRESSURE", None),
+                "humidity": getattr(NumberDeviceClass, "HUMIDITY", None),
+            }
+            dc = _MAP.get(device_class.lower())
+        self._attr_device_class = dc
+
     @property
     def unique_id(self): return f"{self._device_name}_{self._entity_id}"
     @property
@@ -242,7 +250,6 @@ class _BaseNumber(NumberEntity):
 
     @property
     def native_step(self):
-        # Schrittweite aus Skalierung ableiten, z. B. SKAL=2 -> 0.5
         try:
             step = 1.0 / float(self._scaling_factor)
             return int(step) if step.is_integer() else round(step, max(0, self._decimal_places))
@@ -253,10 +260,8 @@ class _BaseNumber(NumberEntity):
     def device_info(self):
         return device_info_for(self._device_key, self._device_name, DOMAIN)
 
-# ---------------- Input-Register (FC=04, 3xxxx, read-only) ----------------
 class FroelingNumberInput(_BaseNumber):
     async def async_set_native_value(self, value):
-        # read-only: bewusst kein Setzen
         _LOGGER.debug("Attempt to write to Input-Register %s ignored", self._register)
 
     async def async_update(self, _=None):
@@ -272,18 +277,10 @@ class FroelingNumberInput(_BaseNumber):
         raw = int(res.registers[0])
         self._value = round(raw / float(self._scaling_factor), self._decimal_places)
         self.async_write_ha_state()
-        
-# ---------------- Holding-Register (FC=03, 4xxxx, read/write) ----------------
-class FroelingNumberHolding(_BaseNumber):
-    """4xxxx Number, writeable (FC=06) mit 2.6-Logik:
-       - -1 Antworten -> unknown
-       - Anzeige: Override aktiv (2-min Fenster ab letztem Write)
-       - Warnung bei Writes < 10 min Mindestschaltdauer
-    """
 
-    # Optional: eigene Defaults pro Entity anpassbar, falls nötig
-    _override_timeout = timedelta(minutes=2)   # 2.6: Fernsteuerung deaktiviert nach 2 min ohne Write
-    _min_switch_interval = timedelta(minutes=10)  # 2.6: Mindestschaltdauer
+class FroelingNumberHolding(_BaseNumber):
+    _override_timeout = timedelta(minutes=2)
+    _min_switch_interval = timedelta(minutes=10)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -305,19 +302,13 @@ class FroelingNumberHolding(_BaseNumber):
         }
 
     async def async_set_native_value(self, value):
-        # Begrenzen & quantisieren
         v = float(min(max(value, self._min_value), self._max_value))
         raw = int(round(v * float(self._scaling_factor)))
         v_quant = raw / float(self._scaling_factor)
 
-        # 10-Minuten-Fenster nur als Hinweis loggen (Regel ignoriert sonst selbst und sendet -1)
         now = datetime.now(timezone.utc)
         if self._last_write_utc and (now - self._last_write_utc) < self._min_switch_interval:
-            _LOGGER.warning(
-                "Write to %s (reg %s) innerhalb der 10-Minuten-Mindestschaltdauer (2.6). "
-                "Regelung kann den Wert ignorieren und -1 zurückmelden.",
-                self._entity_id, self._register
-            )
+            _LOGGER.warning("Write to %s (reg %s) innerhalb Mindestschaltdauer", self._entity_id, self._register)
 
         addr = self._register - 40001
         async with self._lock:
@@ -328,7 +319,6 @@ class FroelingNumberHolding(_BaseNumber):
             _LOGGER.error("write_holding addr=%s unit=%s failed: %s", addr, self._unit_id, err)
             return
 
-        # Erfolgreicher Write: Zeitstempel setzen & lokalen Wert übernehmen
         self._last_write_utc = now
         self._value = round(v_quant, self._decimal_places)
         self.async_write_ha_state()
@@ -345,12 +335,8 @@ class FroelingNumberHolding(_BaseNumber):
             return
 
         raw = int(res.registers[0])
-
-        # signiertes 16-bit: -1 -> 65535
         if raw > 32767:
             raw -= 65536
-
-        # 2.6: -1 bedeutet "Wert ignoriert / Mindestschaltdauer" -> unknown
         if raw == -1:
             self._value = None
             return

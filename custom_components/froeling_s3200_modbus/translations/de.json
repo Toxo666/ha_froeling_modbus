@@ -193,9 +193,35 @@
       "nachlegeberechnung_aktiv": { "name": "Nachlegeberechnung aktiv" }
     },
     "select": {
-      "betriebsart_heizkreis_01": { "name": "Betriebsart Heizkreis 01" },
-      "betriebsart_heizkreis_02": { "name": "Betriebsart Heizkreis 02" },
-      "brennstoffauswahl":        { "name": "Brennstoffauswahl" }
+      "betriebsart_heizkreis_01": {
+        "name": "Betriebsart Heizkreis 01",
+        "state": {
+          "off": "Aus",
+          "auto": "Automatik",
+          "extra": "Extraheizen",
+          "eco": "Absenken",
+          "eco_permanent": "Dauerabsenken",
+          "party": "Partybetrieb"
+        }
+      },
+      "betriebsart_heizkreis_02": {
+        "name": "Betriebsart Heizkreis 02",
+        "state": {
+          "off": "Aus",
+          "auto": "Automatik",
+          "extra": "Extraheizen",
+          "eco": "Absenken",
+          "eco_permanent": "Dauerabsenken",
+          "party": "Partybetrieb"
+        }
+      },
+      "brennstoffauswahl": {
+        "name": "Brennstoffauswahl",
+        "state": {
+          "softwood": "weiches Holz",
+          "hardwood": "hartes Holz"
+        }
+      }
     },
     "switch": {
       "pelletsaustragung_deaktivieren": { "name": "Automatische Pelletsaustragung deaktivieren" },
@@ -208,19 +234,5 @@
       "pelletsbefuellung_2_startzeit": { "name": "Startzeit 2. Pelletsbefüllung" },
       "nach_scheitholzbetrieb_pufferladung_verzoegern_um": { "name": "Nach Scheitholzbetrieb: Pufferladung mit Pellets verzögern um" }
     }
-  },
-  "select_option": {
-    "hk_mode": {
-      "off": "Aus",
-      "auto": "Automatik",
-      "extra": "Extraheizen",
-      "eco": "Absenken",
-      "eco_permanent": "Dauerabsenken",
-      "party": "Partybetrieb"
-    },
-    "fuel": {
-      "softwood": "weiches Holz",
-      "hardwood": "hartes Holz"
-    }
-  }  
+  }
 }

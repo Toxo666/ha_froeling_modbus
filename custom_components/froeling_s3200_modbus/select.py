@@ -129,10 +129,8 @@ REG_BRENNSTOFFAUSWAHL = 40441   # Select Brennstoffauswahl
 async def async_setup_entry(hass, config_entry, async_add_entities):
     data = hass.data[DOMAIN][config_entry.entry_id]
 
-    # Übersetzungen: sowohl "entity" als auch unser eigener Namespace "select_option"
-    tr_entity = await async_get_translations(hass, hass.config.language, "entity")
-    tr_opts   = await async_get_translations(hass, hass.config.language, "select_option")
-    translations = {**tr_entity, **tr_opts}
+    # Übersetzungen: nur der erlaubte "entity"-Namespace
+    translations = await async_get_translations(hass, hass.config.language, "entity")
 
     client: ModbusTcpClient = hass.data[DOMAIN][f"{config_entry.entry_id}_client"]
     lock = hass.data[DOMAIN][f"{config_entry.entry_id}_lock"]
@@ -224,9 +222,9 @@ class FroelingSelect(SelectEntity):
         entity_id: str,
         register: int,
         device_key: str,
-        group_key: str,                  # z.B. "hk_mode" oder "fuel"
-        code_to_key: dict[int, str],     #  int -> option_key
-        key_to_code: dict[str, int],     #  option_key -> int
+        group_key: str,
+        code_to_key: dict[int, str],
+        key_to_code: dict[str, int],
         name_fallback: str,
     ):
         self._hass = hass
@@ -257,21 +255,20 @@ class FroelingSelect(SelectEntity):
 
     # ---------- Übersetzungs-Helfer ----------
     def _label_for_key(self, opt_key: str) -> str:
-        tr_path = f"component.froeling_s3200_modbus.select_option.{self._group_key}.{opt_key}"
+        # Erlaubtes Schema: component.<domain>.entity.select.<entity_key>.state.<state_key>
+        entity_key = _tr_key(self._entity_id)
+        tr_path = f"component.{DOMAIN}.entity.select.{entity_key}.state.{opt_key}"
         # Fallback auf DEFAULT_LABELS, falls Übersetzung fehlt
         return self._translations.get(
             tr_path,
             DEFAULT_LABELS.get(self._group_key, {}).get(opt_key, opt_key),
         )
-
-    # ---------- HA Properties ----------
     @property
     def unique_id(self) -> str:
         return f"{self._device_name}_{self._entity_id}"
 
     @property
     def options(self) -> list[str]:
-        # Sichtbare Labels der bekannten Option-Keys
         return [self._label_for_key(k) for k in self._option_keys]
 
     @property
@@ -284,7 +281,6 @@ class FroelingSelect(SelectEntity):
     def device_info(self):
         return device_info_for(self._device_key, self._device_name, DOMAIN)
 
-    # ---------- IO ----------
     async def async_update(self, *_):
         """Holding lesen und Option setzen."""
         addr = self._register - 40001
@@ -299,14 +295,10 @@ class FroelingSelect(SelectEntity):
             raw = int(res.registers[0])
             key = self._code_to_key.get(raw)
             if key is None:
-                # Unbekannter Code -> dynamische "Wert N" Darstellung
                 self._current_key = None
                 dyn_label = f"Wert {raw}"
-                # In Optionen zeigen, ohne den festen Katalog zu verschmutzen
                 if dyn_label not in self.options:
-                    # nichts persistieren, HA zeigt current_option not in options → wir fügen dynamisch unten hinzu
                     pass
-                # Setze sichtbare Option direkt über Label (current_key bleibt None)
                 if getattr(self, "hass", None) is not None and getattr(self, "entity_id", None):
                     self._attr_options = self.options + [dyn_label]
                     self._attr_current_option = dyn_label
@@ -315,7 +307,6 @@ class FroelingSelect(SelectEntity):
             else:
                 self._current_key = key
                 if getattr(self, "hass", None) is not None and getattr(self, "entity_id", None):
-                    # sicherstellen, dass HA die Optionen (Labels) hat
                     self._attr_options = self.options
                     self._attr_current_option = self.current_option
                     self.async_write_ha_state()
@@ -324,7 +315,6 @@ class FroelingSelect(SelectEntity):
 
     async def async_select_option(self, option: str):
         """Holding schreiben aus ausgewählter (übersetzter) Option."""
-        # Mappe Label -> Key
         key = None
         for k in self._option_keys:
             if self._label_for_key(k) == option:
@@ -332,7 +322,6 @@ class FroelingSelect(SelectEntity):
                 break
 
         if key is None:
-            # Erlaube dynamisches "Wert N"
             if option.startswith("Wert "):
                 try:
                     code = int(option.split(" ", 1)[1])
@@ -354,9 +343,7 @@ class FroelingSelect(SelectEntity):
             _LOGGER.error("write_holding addr=%s unit=%s failed: %s", addr, self._unit_id, err)
             return
 
-        # State lokal aktualisieren
         if key is None:
-            # dynamischer Wert
             self._current_key = None
             if getattr(self, "hass", None) is not None and getattr(self, "entity_id", None):
                 self._attr_options = self.options + [option]
