@@ -55,9 +55,7 @@ Damit lassen sich Zustände und Messwerte der Heizanlage (Kessel, Heizkreise, Pu
 ---
 
 ## 🖼️ Screenshots
-
-
-
+<img width="2010" height="1344" alt="2025-10-03_14-57-08" src="https://github.com/user-attachments/assets/ebbb796a-b0e1-4b06-b8c6-bd18caea4a31" />
 ---
 
 ## 🤝 Mitwirken
