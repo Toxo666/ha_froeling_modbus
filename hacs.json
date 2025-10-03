@@ -1,3 +1,4 @@
 {
-    "name": "Froeling S3200 Modbus"
-  }
+  "name": "Froeling S3200 Modbus",
+  "render_readme": true
+}
