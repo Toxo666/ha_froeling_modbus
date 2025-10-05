@@ -54,6 +54,34 @@ Damit lassen sich Zustände und Messwerte der Heizanlage (Kessel, Heizkreise, Pu
 
 ---
 
+## ⚙️ Modbus-Adresse / Unit-ID einstellen
+
+Für eine funktionierende Kommunikation zwischen Home Assistant und der Fröling-Steuerung müssen die **Modbus-Adressen (Unit-IDs)** übereinstimmen.
+
+Die **Unit-ID** wird direkt am Bedienfeld der Heizung eingestellt:
+
+```
+Anlage → Einstellen → Allg. Einstellungen → MODBUS Einstellungen → MODBUS Adresse
+```
+
+Hier kann ein Wert zwischen **1 und 247** vergeben werden.  
+In der Integration wird derselbe Wert im Feld **„Unit ID“** bzw. **„Unit Number“** eingetragen.  
+Nur wenn beide Werte identisch sind, können Daten korrekt gelesen und geschrieben werden.
+
+> **Wichtig:**  
+> Wenn die Adressen nicht übereinstimmen, werden keine Werte empfangen oder Befehle umgesetzt.  
+> Jede Modbus-Steuerung im Netzwerk muss außerdem eine **eindeutige** Adresse besitzen, um Adresskonflikte zu vermeiden.
+
+**Empfohlene Grundeinstellungen am Fröling-Gerät:**
+- COM 2 als Modbus-Schnittstelle aktivieren → **JA**  
+- MODBUS-Protokoll: **RTU (1)**  
+- MODBUS-Protokoll 2014 verwenden → **JA**
+
+Diese Optionen befinden sich ebenfalls im Menü:  
+`Anlage → Einstellen → Allg. Einst → MODBUS Einstellungen`.
+
+---
+
 ## 🖼️ Screenshots
 <img width="2010" height="1344" alt="2025-10-03_14-57-08" src="https://github.com/user-attachments/assets/ebbb796a-b0e1-4b06-b8c6-bd18caea4a31" />
 

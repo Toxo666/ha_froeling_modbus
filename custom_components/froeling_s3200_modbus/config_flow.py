@@ -35,17 +35,14 @@ class FroelingModbusConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     @staticmethod
     @callback
     def async_get_options_flow(config_entry):
-        return FroelingOptionsFlow(config_entry)
+        return FroelingOptionsFlow()
 
 
 class FroelingOptionsFlow(config_entries.OptionsFlow):
     """Options flow to reconfigure without removing the entry."""
 
-    def __init__(self, config_entry):
-        self.config_entry = config_entry
-
     async def async_step_init(self, user_input=None):
-        # aktuelle Werte: options > data
+        # aktuelle Werte: options > data (self.config_entry wird bereitgestellt)
         cfg = {**self.config_entry.data, **self.config_entry.options}
 
         if user_input is not None:
@@ -53,6 +50,8 @@ class FroelingOptionsFlow(config_entries.OptionsFlow):
             return self.async_create_entry(title="", data=user_input)
 
         schema = vol.Schema({
+            vol.Optional("host", default=cfg.get("host", "")): str,
+            vol.Optional("port", default=cfg.get("port", 502)): int,
             vol.Optional("unit_id", default=cfg.get("unit_id", 2)): int,
             vol.Optional("update_interval", default=cfg.get("update_interval", 60)): int,
             vol.Optional("kessel", default=cfg.get("kessel", True)): bool,

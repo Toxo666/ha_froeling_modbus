@@ -2,24 +2,54 @@
   "config": {
     "step": {
       "user": {
-        "title": "Configure Froeling Modbus",
-        "description": "Please enter the connection details for your Froeling Modbus device.",
+        "title": "Connect Fröling S3200 Modbus",
+        "description": "Enter connection parameters and device settings.",
         "data": {
           "name": "Unique name (Default: Froeling)",
           "host": "Hostname/IP",
           "port": "Port (Default: 502)",
+          "unit_id": "Modbus address (Unit ID)",
           "update_interval": "Update interval (Default: 60 seconds)",
-          "kessel": "Boiler",
-          "boiler01": "DHW 01",
-          "hk01": "Heating Circuit 01",
-          "hk02": "Heating Circuit 02",
-          "austragung": "Feed System",
-          "puffer01": "Buffer 01",
-          "zirkulationspumpe": "Circulation Pump"
+          "kessel": "Boiler enable",
+          "boiler01": "DHW 01 enable",
+          "hk01": "Heating Circuit 01 enable",
+          "hk02": "Heating Circuit 02 enable",
+          "austragung": "Feed System enable",
+          "puffer01": "Buffer 01 enable",
+          "zirkulationspumpe": "Circulation Pump enable"
         }
       }
-    }
-  },
+    },
+      "error": {
+        "cannot_connect": "Failed to connect",
+        "invalid_auth": "Invalid authentication",
+        "unknown": "Unknown error"
+      },
+      "abort": {
+        "already_configured": "This device is already configured."
+      }
+    },
+    "options": {
+      "step": {
+        "init": {
+          "title": "Fröling S3200 Modbus – Options",
+          "description": "Adjust settings.",
+          "data": {
+            "host": "Hostname/IP",
+            "port": "Port (Default: 502)",
+            "unit_id": "Modbus address (Unit ID)",
+            "update_interval": "Update interval (sec)",
+            "kessel": "Show boiler",
+            "boiler01": "Show DHW 01",
+            "hk01": "Show heating circuit 01",
+            "hk02": "Show heating circuit 02",
+            "puffer01": "Show buffer 01",
+            "austragung": "Show Feed System",
+            "zirkulationspumpe": "Show circulation pump"
+          }
+        }
+      }
+    },
   "entity": {
     "sensor": {
       "kessel_kesseltemperatur": { "name": "Boiler Temperature" },

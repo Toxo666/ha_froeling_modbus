@@ -2,24 +2,54 @@
   "config": {
     "step": {
       "user": {
-        "title": "Froeling Modbus konfigurieren",
-        "description": "Bitte geben Sie die Verbindungsdetails für Ihr Froeling Modbus-Gerät ein.",
+        "title": "Fröling S3200 Modbus verbinden",
+        "description": "Verbindungsparameter und Geräteeinstellungen eintragen.",
         "data": {
           "name": "Eindeutiger Name (Standard: Froeling)",
           "host": "Hostname/IP",
           "port": "Port (Standard: 502)",
+          "unit_id": "Modbus-Adresse (Unit ID)",
           "update_interval": "Update-Intervall (Standard: 60 Sekunden)",
-          "kessel": "Kessel",
-          "boiler01": "Boiler 01",
-          "hk01": "Heizkreis 01",
-          "hk02": "Heizkreis 02",
-          "austragung": "Austragung",
-          "puffer01": "Puffer 01",
-          "zirkulationspumpe": "Zirkulationspumpe"
+          "kessel": "Kessel aktivieren",
+          "boiler01": "Boiler 01 aktivieren",
+          "hk01": "Heizkreis 01 aktivieren",
+          "hk02": "Heizkreis 02 aktivieren",
+          "austragung": "Austragung aktivieren",
+          "puffer01": "Puffer 01 aktivieren",
+          "zirkulationspumpe": "Zirkulationspumpe aktivieren"
         }
       }
-    }
-  },
+    },
+      "error": {
+        "cannot_connect": "Verbindung fehlgeschlagen",
+        "invalid_auth": "Ungültige Zugangsdaten",
+        "unknown": "Unbekannter Fehler"
+      },
+      "abort": {
+        "already_configured": "Dieses Gerät ist bereits konfiguriert."
+      }
+    },
+    "options": {
+      "step": {
+        "init": {
+          "title": "Fröling S3200 Modbus – Optionen",
+          "description": "Einstellungen anpassen.",
+          "data": {
+            "host": "Hostname/IP",
+            "port": "Port (Standard: 502)",
+            "unit_id": "Modbus-Adresse (Unit ID)",
+            "update_interval": "Aktualisierungsintervall (Sek.)",
+            "kessel": "Kessel anzeigen",
+            "boiler01": "Boiler 01 anzeigen",
+            "hk01": "Heizkreis 01 anzeigen",
+            "hk02": "Heizkreis 02 anzeigen",
+            "puffer01": "Puffer 01 anzeigen",
+            "austragung": "Austragung anzeigen",
+            "zirkulationspumpe": "Zirkulationspumpe anzeigen"
+          }
+        }
+      }
+    },
   "entity": {
     "sensor": {
       "kessel_kesseltemperatur": { "name": "Kesseltemperatur" },
