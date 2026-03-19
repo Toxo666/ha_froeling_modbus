@@ -29,7 +29,7 @@ def device_info_for(device_key: str, device_name_from_config: str, domain: str):
             "name": "SP Dual Compact",
             "manufacturer": "Fröling",
             "model": "SP Dual Compact",
-            "sw_version": "0.3.3",
+            "sw_version": "0.3.4",
         }
     return {
         "identifiers": {(domain, f"{device_name_from_config}:{device_key}")},
@@ -37,7 +37,7 @@ def device_info_for(device_key: str, device_name_from_config: str, domain: str):
         "manufacturer": "Fröling",
         "model": dev_name,
         "via_device": (domain, f"{device_name_from_config}:controller"),
-        "sw_version": "0.3.3",
+        "sw_version": "0.3.4",
     }
 # ----------------------------------------------------------
 
@@ -62,6 +62,12 @@ def _read_input_sync(client, unit_id: int, addr: int, count: int):
         return res, None
     except TypeError:
         pass
+    except (BrokenPipeError, ConnectionResetError):
+        try:
+            client.close()
+        except Exception:
+            pass
+        return None, "broken_pipe"
     # 2) Fallback: unit
     try:
         res = client.read_input_registers(addr, count=count, unit=unit_id)
@@ -81,6 +87,12 @@ def _read_holding_sync(client, unit_id: int, addr: int, count: int):
         return res, None
     except TypeError:
         pass
+    except (BrokenPipeError, ConnectionResetError):
+        try:
+            client.close()
+        except Exception:
+            pass
+        return None, "broken_pipe"
     try:
         res = client.read_holding_registers(addr, count=count, unit=unit_id)
         if hasattr(res, "isError") and res.isError():
