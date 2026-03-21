@@ -29,7 +29,7 @@ def device_info_for(device_key: str, device_name_from_config: str, domain: str):
             "name": "SP Dual Compact",
             "manufacturer": "Fröling",
             "model": "SP Dual Compact",
-            "sw_version": "0.3.4",
+            "sw_version": "0.3.5",
         }
     return {
         "identifiers": {(domain, f"{device_name_from_config}:{device_key}")},
@@ -37,7 +37,7 @@ def device_info_for(device_key: str, device_name_from_config: str, domain: str):
         "manufacturer": "Fröling",
         "model": dev_name,
         "via_device": (domain, f"{device_name_from_config}:controller"),
-        "sw_version": "0.3.4",
+        "sw_version": "0.3.5",
     }
 # ----------------------------------------------------------
 
@@ -541,7 +541,8 @@ KESSELZUSTAND_MAPPING = {
     58:"FEHLER: Hackgut",59:"NB: Tür offen",60:"NB: Anheizen",61:"NB: Heizen",62:"FEHLER: STB/NA",63:"FEHLER: Allgemein",64:"NB: Feuer Aus",
     65:"Selbsttest aktiv",66:"Fehlerbeh. 20min",67:"FEHLER: Fallschacht",68:"STÖRUNG: Fallschacht",69:"Reinigen möglich",70:"Heizen - Reinigen",
     71:"SH Anheizen",72:"SH Heizen",73:"SH Heiz/Abstell",74:"STÖRUNG sicher",75:"AGR Nachlauf",76:"AGR reinigen",77:"Zündung AUS",78:"Filter reinigen",
-    79:"Anheizassistent",80:"SH Zünden",81:"SH Störung",82:"Sensorcheck"
+    79:"Anheizassistent",80:"SH Zünden",81:"SH Störung",82:"Sensorcheck",
+    89:"Abstellen Warten (SH)",90:"Abreinigen (SH)"
 }
 
 LEGIONELLENTAG_MAPPING = {
